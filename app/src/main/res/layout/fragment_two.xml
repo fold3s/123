@@ -1,0 +1,88 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context="com.example.hao.smarthome.fragments.OneFragment"
+    android:background="@color/colorAccent">
+
+    <TableRow
+        android:id="@+id/tablerow1_2"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/text_2"
+            android:text="ROOM 1" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tablerow2_2"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:background="@color/colorAccent">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/led_2"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/led_off"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/led_txt_2"
+                android:layout_marginLeft="25dp"
+                android:text="LED 3"
+                android:layout_below="@+id/led_2"/>
+
+        </RelativeLayout>
+
+    </TableRow>
+    <TableRow
+        android:id="@+id/tablerow3_2"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/text2_2"
+            android:text="ROOM 2" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/tablerow4_2"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:background="@color/colorAccent">
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fan_2"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/fan_off"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fan_txt_2"
+                android:layout_marginLeft="25dp"
+                android:text="FAN 1"
+                android:layout_below="@+id/fan_2"/>
+
+        </RelativeLayout>
+    </TableRow>
+</TableLayout>
