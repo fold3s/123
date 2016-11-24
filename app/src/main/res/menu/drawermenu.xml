@@ -3,6 +3,9 @@
 
 
 
+    <item android:title="Home"
+        android:icon="@mipmap/home"
+        android:id="@+id/home"/>
     <item android:title="General">
         <menu>
             <item android:title="Timer"

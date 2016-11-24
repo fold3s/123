@@ -10,13 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".BackGround">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".BackGround"/>
         <activity android:name=".About" />
         <activity android:name=".Sign_In" />
         <activity android:name=".Sign_Up" />
@@ -24,7 +18,17 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:theme="@style/MyMaterialTheme" />
+        <activity android:name=".History" />
+        <activity android:name=".rv_custom" />
+        <activity android:name=".SplashSreen"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

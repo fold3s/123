@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hao.smarthome.BackGround;
+import com.example.hao.smarthome.History;
 import com.example.hao.smarthome.MainActivity;
 import com.example.hao.smarthome.R;
 import com.example.hao.smarthome.Sign_In;
@@ -44,33 +45,13 @@ import static android.content.Context.*;
 
 
 public class OneFragment extends Fragment {
-    ImageView fan,led;
-    boolean fan_flag,led_flag;
+    public static ImageView fan,led;
+    public static boolean fan_flag,led_flag;
     private Sign_In sign_in;
-    BackGround backGround;
+    private BackGround backGround;
+    public String a;
 
 
-    public void listener(){
-        Sign_In.backGround.listener=new Emitter.Listener(){
-
-            @Override
-            public void call(final Object... args) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            JSONObject obj =  new JSONObject((String)args[0]);
-                            String message=obj.toString();
-                            Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
-                            Log.d("sync","asd");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        };
-    }
 
 
     private Emitter.Listener onSetNode = new Emitter.Listener() {
@@ -149,7 +130,6 @@ public class OneFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sign_in = new Sign_In();
 
     }
 
@@ -167,15 +147,15 @@ public class OneFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-
+        backGround = new BackGround();
+        a="Hello";
         View rootView = inflater.inflate(R.layout.fragment_one, container, false);
         fan=(ImageView)rootView.findViewById(R.id.fan);
         led=(ImageView)rootView.findViewById(R.id.led);
-        Sign_In.backGround.mSocket.on("RMNODE",onCheck);
-        Sign_In.backGround.mSocket.on("RMSETNODE",onSetNode);
-        listener();
-        Sign_In.backGround.mSocket.on("SYNC",backGround.listener);
-        Sign_In.backGround.mSocket.connect();
+        BackGround.mSocket.on("RMNODE",onCheck);
+        BackGround.mSocket.on("RMSETNODE",onSetNode);
+        BackGround.mSocket.on("SYNC",BackGround.listener);
+        BackGround.mSocket.connect();
         checknode("H1","1H1");
         checknode("H1","1H2");
 
@@ -185,14 +165,13 @@ public class OneFragment extends Fragment {
                 if(fan_flag==true){
                     fan.setImageResource(R.mipmap.fan_off);
                     fan_flag=false;
-                    setnode("H1","1H1",0);
-
+                    setnode("H1","1H1","0");
 
                 }
                 else if(fan_flag==false){
                     fan.setImageResource(R.mipmap.fan_on);
                     fan_flag=true;
-                    setnode("H1","1H1",1);
+                    setnode("H1","1H1","1");
                 }
             }
         });
@@ -202,19 +181,19 @@ public class OneFragment extends Fragment {
                 if(led_flag==true){
                     led.setImageResource(R.mipmap.led_off);
                     led_flag=false;
-                    setnode("H1","1H2",0);
+                    setnode("H1","1H2","0");
                 }
                 else if(led_flag==false){
                     led.setImageResource(R.mipmap.led_on);
                     led_flag=true;
-                    setnode("H1","1H2",1);
+                    setnode("H1","1H2","1");
                 }
             }
         });
         return rootView;
 
     }
-    private void setnode(String homeCode,String nodeCode,int status){
+    private void setnode(String homeCode,String nodeCode,String status){
         JSONObject obj = new JSONObject();
         try {
             obj.put("title","@MSETNODE");
@@ -228,7 +207,7 @@ public class OneFragment extends Fragment {
         Log.d("error","here");
         Log.d("error",obj.toString());
 
-        Sign_In.backGround.mSocket.emit("MSETNODE",obj.toString());
+        BackGround.mSocket.emit("MSETNODE",obj.toString());
     }
     private void checknode(String homeCode,String nodeCode){
         JSONObject obj=new JSONObject();
@@ -239,6 +218,6 @@ public class OneFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Sign_In.backGround.mSocket.emit("MNODE",obj.toString());
+        BackGround.mSocket.emit("MNODE",obj.toString());
     }
 }
