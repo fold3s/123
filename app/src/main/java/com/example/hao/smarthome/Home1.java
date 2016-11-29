@@ -1,6 +1,7 @@
 package com.example.hao.smarthome;
 
 import com.example.hao.smarthome.fragments.H1.Room1_H1;
+import com.example.hao.smarthome.fragments.H1.Room2_H1;
 
 
 import android.content.Intent;
@@ -62,15 +63,15 @@ public class Home1 extends AppCompatActivity{
                             }
                             else if(node.equals("1H2")){
                                 if(status.equals("1")){
-                                    Room1_H1.led.setImageResource(R.mipmap.led_on);
-                                    Room1_H1.led_flag=true;
+                                    Room2_H1.led.setImageResource(R.mipmap.led_on);
+                                    Room2_H1.led_flag=true;
                                     //History.myIconset.add(R.mipmap.led_on);
                                     //History.myDataset.add("LED 2");
                                     //History.mAdapter.notifyDataSetChanged();
                                 }
                                 else if(status.equals("0")){
-                                    Room1_H1.led.setImageResource(R.mipmap.led_off);
-                                    Room1_H1.led_flag=false;
+                                    Room2_H1.led.setImageResource(R.mipmap.led_off);
+                                    Room2_H1.led_flag=false;
                                     //History.myIconset.add(R.mipmap.led_off);
                                     //History.myDataset.add("LED 2");
                                     //History.mAdapter.notifyDataSetChanged();

@@ -2,10 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:stretchColumns="1"
     tools:context=".fragments.H1.Room1_H1"
+    android:stretchColumns="1"
     android:background="@color/colorAccent">
-
     <TableRow
         android:background="@color/bg"
         android:layout_width="fill_parent"
@@ -14,24 +13,24 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/led"
+            android:id="@+id/fan_2"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:src="@mipmap/led_off"
+            android:src="@mipmap/fan_off"
             android:paddingTop="20dp"
             android:layout_weight="0"
             android:layout_marginBottom="20dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/led_txt"
+            android:id="@+id/fan_txt_2"
             android:textSize="20dp"
-            android:text="LED 2"
+            android:text="FAN 1"
             android:layout_marginTop="20dp" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_led"
+            android:id="@+id/detail_fan_2"
             android:gravity="right"
             android:src="@mipmap/detail"
             android:scaleX="0.5"
@@ -40,12 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:id="@+id/timer_led"
+            android:id="@+id/timer_fan_2"
             android:src="@mipmap/timer"
             android:scaleX="0.6"
             android:scaleY="0.6"
             android:layout_marginRight="20dp" />
     </TableRow>
-
-
 </TableLayout>

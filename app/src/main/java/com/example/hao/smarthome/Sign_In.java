@@ -178,7 +178,7 @@ public class Sign_In extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else if(which==1){
-                        Intent intent=new Intent(Sign_In.this,Home1.class);
+                        Intent intent=new Intent(Sign_In.this,Home2.class);
                         startActivity(intent);
                     }
                 }

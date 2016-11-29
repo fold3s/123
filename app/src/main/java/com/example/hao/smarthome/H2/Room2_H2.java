@@ -1,6 +1,8 @@
-package com.example.hao.smarthome.fragments.H1;
+package com.example.hao.smarthome.H2;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hao.smarthome.BackGround;
+import com.example.hao.smarthome.Home1;
 import com.example.hao.smarthome.R;
 import com.example.hao.smarthome.Sign_In;
 
@@ -21,10 +24,12 @@ import org.json.JSONObject;
 import io.socket.emitter.Emitter;
 
 
-public class Room2_H1 extends Fragment{
+public class Room2_H2 extends Fragment {
+    public static ImageView fan_2;
+    public static boolean fan_2_flag,fan_2_permission;
 
-    public static ImageView led;
-    public static boolean led_flag,led_permission;
+
+
     private Emitter.Listener onSetNode = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -32,7 +37,6 @@ public class Room2_H1 extends Fragment{
                 @Override
                 public void run() {
                     String message;
-                    String msg =  args[0].toString();
                     try {
                         JSONObject data=new JSONObject((String)args[0]);
                         message=data.getString("rcode");
@@ -49,7 +53,6 @@ public class Room2_H1 extends Fragment{
 
         }
     };
-
     private Emitter.Listener onCheck= new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -64,13 +67,14 @@ public class Room2_H1 extends Fragment{
                         status=data.getString("status");
                         if(message.equals("200")){
                             Toast.makeText(getActivity(),message,Toast.LENGTH_LONG).show();
-                             if(device.equals("1H2")){
+                            if(device.equals("2H2")){
                                 if(status.equals("1")){
-                                    led.setImageResource(R.mipmap.led_on);
-                                    led_flag=true;
-                                } else if (status.equals("0")) {
-                                    led.setImageResource(R.mipmap.led_off);
-                                    led_flag=false;
+                                    fan_2.setImageResource(R.mipmap.fan_on);
+                                    fan_2_flag=true;
+                                }
+                                else if(status.equals("0")){
+                                    fan_2.setImageResource(R.mipmap.fan_off);
+                                    fan_2_flag=false;
                                 }
                             }
                         }
@@ -86,9 +90,6 @@ public class Room2_H1 extends Fragment{
             });
         }
     };
-    public Room2_H1() {
-        // Required empty public constructor
-    }
     private Emitter.Listener onGetAllNode = new Emitter.Listener(){
 
         @Override
@@ -102,13 +103,12 @@ public class Room2_H1 extends Fragment{
                         for(int i=0;i<device.length();i++){
                             JSONObject getD=device.getJSONObject(i);
                             String DID=getD.getString("DID");
-                            if(DID.equals("1H2")){
-                                led_permission=true;
+                            if(DID.equals("2H2")){
+                                fan_2_permission=true;
                                 break;
                             }
                             else{
-                                led_permission=false;
-                                break;
+                                fan_2_permission=false;
                             }
 
                         }
@@ -121,34 +121,46 @@ public class Room2_H1 extends Fragment{
             });
         }
     };
+    public Room2_H2() {
+        // Required empty public constructor
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
     }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.room2_h1, container, false);
-        led=(ImageView)rootView.findViewById(R.id.led);
-        BackGround.mSocket.connect();
+        View rootView = inflater.inflate(R.layout.room2_h2, container, false);
+        fan_2=(ImageView)rootView.findViewById(R.id.fan_2);
         BackGround.mSocket.on("RMNODE",onCheck);
         BackGround.mSocket.on("RMSETNODE",onSetNode);
         BackGround.mSocket.on("RMGETNODE",onGetAllNode);
-        checknode("H1","1H2");
+        BackGround.mSocket.connect();
+        checknode("H2","2H2");
         getallnode(Sign_In.ID);
 
-
-        led.setOnClickListener(new ImageView.OnClickListener() {
+        fan_2.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(led_permission==true){
+                if(fan_2_permission==true){
                     withPermission();
                 }
-                else if(led_permission==false){
-
+                else if(fan_2_permission==false){
+                    withoutPermission();
                 }
             }
         });
@@ -159,7 +171,7 @@ public class Room2_H1 extends Fragment{
         JSONObject obj = new JSONObject();
         try {
             obj.put("title","@MSETNODE");
-            obj.put("userID","tuyen");
+            obj.put("userID",Sign_In.ID);
             obj.put("homeCode",homeCode);
             obj.put("nodeCode",nodeCode);
             obj.put("status",status);
@@ -193,15 +205,16 @@ public class Room2_H1 extends Fragment{
         BackGround.mSocket.emit("MGETNODE",obj.toString());
     }
     public void withPermission(){
-        if(led_flag==true){
-            led.setImageResource(R.mipmap.led_off);
-            led_flag=false;
-            setnode("H1","1H2","0");
+        if(fan_2_flag==true){
+            fan_2.setImageResource(R.mipmap.fan_off);
+            fan_2_flag=false;
+            setnode("H2","2H2","0");
+
         }
-        else if(led_flag==false){
-            led.setImageResource(R.mipmap.led_on);
-            led_flag=true;
-            setnode("H1","1H2","1");
+        else if(fan_2_flag==false){
+            fan_2.setImageResource(R.mipmap.fan_on);
+            fan_2_flag=true;
+            setnode("H2","2H2","1");
         }
     }
     public void withoutPermission(){
@@ -210,7 +223,4 @@ public class Room2_H1 extends Fragment{
         builder.setMessage("You do NOT have a permission to controll this device...");
         builder.show();
     }
-
 }
-
-

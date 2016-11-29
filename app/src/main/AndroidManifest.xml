@@ -17,8 +17,8 @@
         <activity android:name=".Startup" />
         <activity
             android:name=".Home1"
-            android:label="@string/title_activity_main"
             android:theme="@style/MyMaterialTheme" />
+        <activity android:name=".Home2" />
         <activity android:name=".History" />
         <activity
             android:name=".SplashSreen"
@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Home2"></activity>
     </application>
 
 </manifest>

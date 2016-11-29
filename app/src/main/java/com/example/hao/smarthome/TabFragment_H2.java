@@ -14,10 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.hao.smarthome.fragments.H1.Room1_H1;
-import com.example.hao.smarthome.fragments.H1.Room2_H1;
+import com.example.hao.smarthome.H2.Room1_H2;
+import com.example.hao.smarthome.H2.Room2_H2;
 
-public class TabFragment_H1 extends Fragment {
+public class TabFragment_H2 extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -29,9 +29,9 @@ public class TabFragment_H1 extends Fragment {
         /**
          *Inflate tab_layout_h1 and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tab_layout_h1,null);
-        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View x =  inflater.inflate(R.layout.tab_layout_h2,null);
+        tabLayout = (TabLayout) x.findViewById(R.id.tabs_2);
+        viewPager = (ViewPager) x.findViewById(R.id.viewpager_2);
 
         /**
          *Set an Apater for the View Pager
@@ -69,8 +69,8 @@ public class TabFragment_H1 extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new Room1_H1();
-                case 1 : return new Room2_H1();
+                case 0 : return new Room1_H2();
+                case 1 : return new Room2_H2();
             }
             return null;
         }
