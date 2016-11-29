@@ -14,12 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.hao.smarthome.fragments.FourFragment;
-import com.example.hao.smarthome.fragments.OneFragment;
-import com.example.hao.smarthome.fragments.ThreeFragment;
-import com.example.hao.smarthome.fragments.TwoFragment;
+import com.example.hao.smarthome.fragments.H1.Room1_H1;
+import com.example.hao.smarthome.fragments.H1.Room2_H1;
 
-public class TabFragment extends Fragment {
+public class TabFragment_H1 extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -71,8 +69,8 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new OneFragment();
-                case 1 : return new TwoFragment();
+                case 0 : return new Room1_H1();
+                case 1 : return new Room2_H1();
             }
             return null;
         }
@@ -93,9 +91,9 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Home 1";
+                    return "Room 1";
                 case 1 :
-                    return "Home 2";
+                    return "Room 2";
             }
             return null;
         }

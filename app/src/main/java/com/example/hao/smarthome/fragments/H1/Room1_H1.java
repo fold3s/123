@@ -1,50 +1,25 @@
-package com.example.hao.smarthome.fragments;
+package com.example.hao.smarthome.fragments.H1;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hao.smarthome.BackGround;
-import com.example.hao.smarthome.History;
-import com.example.hao.smarthome.MainActivity;
 import com.example.hao.smarthome.R;
 import com.example.hao.smarthome.Sign_In;
 
-import org.java_websocket.client.WebSocketClient;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
-
-import io.socket.client.IO;
 import io.socket.emitter.Emitter;
 
-import static android.content.Context.*;
 
-
-public class OneFragment extends Fragment {
+public class Room1_H1 extends Fragment {
     public static ImageView fan,led;
     public static boolean fan_flag,led_flag;
     private Sign_In sign_in;
@@ -123,7 +98,7 @@ public class OneFragment extends Fragment {
             });
         }
     };
-    public OneFragment() {
+    public Room1_H1() {
         // Required empty public constructor
     }
 
@@ -149,7 +124,7 @@ public class OneFragment extends Fragment {
 
         backGround = new BackGround();
         a="Hello";
-        View rootView = inflater.inflate(R.layout.fragment_one, container, false);
+        View rootView = inflater.inflate(R.layout.room1_h1, container, false);
         fan=(ImageView)rootView.findViewById(R.id.fan);
         led=(ImageView)rootView.findViewById(R.id.led);
         BackGround.mSocket.on("RMNODE",onCheck);

@@ -1,7 +1,6 @@
 package com.example.hao.smarthome;
 
-import com.example.hao.smarthome.R;
-import com.example.hao.smarthome.fragments.OneFragment;
+import com.example.hao.smarthome.fragments.H1.Room1_H1;
 
 
 import android.content.Intent;
@@ -13,22 +12,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import io.socket.emitter.Emitter;
 
-public class MainActivity extends AppCompatActivity{
+public class Home1 extends AppCompatActivity{
     DrawerLayout mDrawerLayout;
     NavigationView mNavigationView;
     FragmentManager mFragmentManager;
@@ -49,36 +44,36 @@ public class MainActivity extends AppCompatActivity{
                             Log.d("SYNC",obj.toString());
                             if(node.equals("1H1")){
                                 if(status.equals("1")){
-                                    OneFragment.fan.setImageResource(R.mipmap.fan_on);
-                                    OneFragment.fan_flag=true;
-                                    History.myIconset.add(R.mipmap.fan_on);
-                                    History.myDataset.add("FAN 2");
-                                    History.mAdapter.notifyDataSetChanged();
+                                    Room1_H1.fan.setImageResource(R.mipmap.fan_on);
+                                    Room1_H1.fan_flag=true;
+                                    //History.myIconset.add(R.mipmap.fan_on);
+                                    //History.myDataset.add("FAN 2");
+                                    //History.mAdapter.notifyDataSetChanged();
 
                                 }
                                 else if(status.equals("0")){
-                                    OneFragment.fan.setImageResource(R.mipmap.fan_off);
-                                    OneFragment.fan_flag=false;
-                                    History.myIconset.add(R.mipmap.fan_off);
-                                    History.myDataset.add("FAN 2");
-                                    History.mAdapter.notifyDataSetChanged();
+                                    Room1_H1.fan.setImageResource(R.mipmap.fan_off);
+                                    Room1_H1.fan_flag=false;
+                                    //History.myIconset.add(R.mipmap.fan_off);
+                                    //History.myDataset.add("FAN 2");
+                                    //History.mAdapter.notifyDataSetChanged();
 
                                 }
                             }
                             else if(node.equals("1H2")){
                                 if(status.equals("1")){
-                                    OneFragment.led.setImageResource(R.mipmap.led_on);
-                                    OneFragment.led_flag=true;
-                                    History.myIconset.add(R.mipmap.led_on);
-                                    History.myDataset.add("LED 2");
-                                    History.mAdapter.notifyDataSetChanged();
+                                    Room1_H1.led.setImageResource(R.mipmap.led_on);
+                                    Room1_H1.led_flag=true;
+                                    //History.myIconset.add(R.mipmap.led_on);
+                                    //History.myDataset.add("LED 2");
+                                    //History.mAdapter.notifyDataSetChanged();
                                 }
                                 else if(status.equals("0")){
-                                    OneFragment.led.setImageResource(R.mipmap.led_off);
-                                    OneFragment.led_flag=false;
-                                    History.myIconset.add(R.mipmap.led_off);
-                                    History.myDataset.add("LED 2");
-                                    History.mAdapter.notifyDataSetChanged();
+                                    Room1_H1.led.setImageResource(R.mipmap.led_off);
+                                    Room1_H1.led_flag=false;
+                                    //History.myIconset.add(R.mipmap.led_off);
+                                    //History.myDataset.add("LED 2");
+                                    //History.mAdapter.notifyDataSetChanged();
                                 }
                             }
 
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home1);
         //backGround = new BackGround();
         Toolbar mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -113,12 +108,12 @@ public class MainActivity extends AppCompatActivity{
 
         /**
          * Lets inflate the very first fragment
-         * Here , we are inflating the TabFragment as the first Fragment
+         * Here , we are inflating the TabFragment_H1 as the first Fragment
          */
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+        mFragmentTransaction.replace(R.id.containerView,new TabFragment_H1()).commit();
         BackGround.mSocket.connect();
         listener();
         BackGround.mSocket.on("SYNC",BackGround.listener);
@@ -129,38 +124,39 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 //  mDrawerLayout.closeDrawers();
+
                 if (menuItem.getItemId() == R.id.logout) {
-                    Intent intent = new Intent(MainActivity.this, Sign_In.class);
+                    Intent intent = new Intent(Home1.this, Sign_In.class);
                     startActivity(intent);
                     //FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                     // fragmentTransaction.replace(R.id.containerView,new SentFragment()).commit();
 
                 }else if(menuItem.getItemId()==R.id.home){
-                    Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                    Intent intent = new Intent(Home1.this,Home1.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.history) {
-                    Intent intent = new Intent(MainActivity.this, History.class);
+                    Intent intent = new Intent(Home1.this, History.class);
                     startActivity(intent);
                 } /*else if (menuItem.getItemId() == R.id.help) {
-                    Intent intent = new Intent(MainActivity.this, About.class);
+                    Intent intent = new Intent(Home1.this, About.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.setting) {
-                    Intent intent = new Intent(MainActivity.this, Setting.class);
+                    Intent intent = new Intent(Home1.this, Setting.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.automode) {
-                    Intent intent = new Intent(MainActivity.this, Mode.class);
+                    Intent intent = new Intent(Home1.this, Mode.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.setting) {
-                    Intent intent = new Intent(MainActivity.this, Setting.class);
+                    Intent intent = new Intent(Home1.this, Setting.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.permissions) {
-                    Intent intent = new Intent(MainActivity.this, Permission.class);
+                    Intent intent = new Intent(Home1.this, Permission.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.Control) {
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    Intent intent = new Intent(Home1.this, Home1.class);
                     startActivity(intent);
                 } else if (menuItem.getItemId() == R.id.user) {
-                    Intent intent = new Intent(MainActivity.this, Account.class);
+                    Intent intent = new Intent(Home1.this, Account.class);
                     startActivity(intent);
                 }*/
 
@@ -186,7 +182,7 @@ public class MainActivity extends AppCompatActivity{
 
                 if (menuItem.getItemId() == R.id.nav_item_inbox) {
                     FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
+                    xfragmentTransaction.replace(R.id.containerView,new TabFragment_H1()).commit();
                 }
 
                 return false;

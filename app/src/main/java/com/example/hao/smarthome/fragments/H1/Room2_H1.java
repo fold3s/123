@@ -1,15 +1,12 @@
-package com.example.hao.smarthome.fragments;
+package com.example.hao.smarthome.fragments.H1;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.hao.smarthome.BackGround;
@@ -19,22 +16,10 @@ import com.example.hao.smarthome.Sign_In;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
-
 import io.socket.emitter.Emitter;
 
 
-public class TwoFragment extends Fragment{
+public class Room2_H1 extends Fragment{
 
     ImageView fan_2,led_2;
     boolean fan_2_flag,led_2_flag;
@@ -128,7 +113,7 @@ public class TwoFragment extends Fragment{
             });
         }
     };
-    public TwoFragment() {
+    public Room2_H1() {
         // Required empty public constructor
     }
 
@@ -143,7 +128,7 @@ public class TwoFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_two, container, false);
+        View rootView = inflater.inflate(R.layout.room2_h1, container, false);
         backGround = new BackGround();
         fan_2=(ImageView)rootView.findViewById(R.id.fan_2);
         led_2=(ImageView)rootView.findViewById(R.id.led_2);

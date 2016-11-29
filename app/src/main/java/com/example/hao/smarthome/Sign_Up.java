@@ -2,10 +2,8 @@ package com.example.hao.smarthome;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,21 +13,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.Socket;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import io.socket.client.IO;
 import io.socket.emitter.Emitter;
 
 public class Sign_Up extends AppCompatActivity {
@@ -47,20 +30,22 @@ public class Sign_Up extends AppCompatActivity {
             Sign_Up.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    String message;
+                    String message = null;
                     String msg =  args[0].toString();
                     try {
                         JSONObject data=new JSONObject(msg);
                         message=data.getString("rcode");
                         if(message.equals("200")){
                             Toast.makeText(getApplicationContext(),"Signup Success !",Toast.LENGTH_LONG).show();
-                            Intent i=new Intent(Sign_Up.this,MainActivity.class);
+                            Sign_In.fID.setText(id);
+                            Sign_In.pass.setText(pass);
+                            Intent i=new Intent(Sign_Up.this,Sign_In.class);
                             startActivity(i);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
 
 
                     hideDialog();
@@ -78,7 +63,7 @@ public class Sign_Up extends AppCompatActivity {
         setContentView(R.layout.activity_sign__up);
         sign_in = new Sign_In();
 
-        //sign_in.mSocket.connect();
+        BackGround.mSocket.connect();
         clickhere = (TextView) findViewById(R.id.Sign_in_if);
         fID = (EditText) findViewById(R.id.ID_Edit_su);
         femail = (EditText) findViewById(R.id.Email_Edit_su);
@@ -86,10 +71,13 @@ public class Sign_Up extends AppCompatActivity {
 
         Button signUp = (Button) findViewById(R.id.sign_up);
 
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
-
-        //sign_in.mSocket.on("RMREG", onReg);
+        pDialog = new ProgressDialog(this,R.style.MyProgressDialog);
+        pDialog.setCancelable(true);
+        pDialog.setMessage("Registering User...");
+        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pDialog.setIndeterminate(true);
+        pDialog.setIndeterminateDrawable(this.getResources().getDrawable(R.drawable.custom_progress_dialog_animation));
+        BackGround.mSocket.on("RMREG", onReg);
 
 
         signUp.setOnClickListener(new Button.OnClickListener() {
@@ -122,9 +110,9 @@ public class Sign_Up extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        pDialog.setMessage("Regustering User...");
+        pDialog.setMessage("Registering User...");
         showDialog();
-        //sign_in.mSocket.emit("MREG",obj.toString());
+        BackGround.mSocket.emit("MREG",obj.toString());
     }
     private void showDialog() {
         if (!pDialog.isShowing())

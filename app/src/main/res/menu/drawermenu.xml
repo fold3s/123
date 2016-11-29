@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
     <item android:title="Home"
+        android:checked="false"
+        android:background="?attr/selectableItemBackground"
         android:icon="@mipmap/home"
         android:id="@+id/home"/>
-    <item android:title="General">
-        <menu>
             <item android:title="Timer"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/timer"
                 android:icon="@mipmap/timer"/>
 
             <item android:title="History"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/history"
                 android:icon="@mipmap/history"/>
 
             <item android:title="Devices Status"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/dev_stt"
                 android:icon="@mipmap/status"/>
             <item android:title="Auto Mode"
+                android:background="?attr/selectableItemBackground"
+                android:checked="false"
                 android:id="@+id/automode"
                 android:icon="@mipmap/auto"/>
-        </menu>
-    </item>
 
 
 
-    <item android:title="Account">
-        <menu>
             <item
                 android:title="User"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/user"
                 android:icon="@mipmap/user"/>
             <item
                 android:title="Permissions"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/permissions"
                 android:icon="@mipmap/permissions"/>
             <item
                 android:title="Log Out"
+                android:checked="false"
+                android:background="?attr/selectableItemBackground"
                 android:id="@+id/logout"
                 android:icon="@mipmap/logout"/>
-        </menu>
-    </item>
-
-    <group android:id="@+id/group_settings_id">
-
         <item android:title="Settings"
+            android:background="?attr/selectableItemBackground"
+            android:checked="false"
             android:icon="@mipmap/settings"/>
         <item android:title="Help"
+            android:background="?attr/selectableItemBackground"
+            android:checked="false"
             android:icon="@mipmap/help"/>
-    </group>
 
 
 </menu>

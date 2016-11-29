@@ -1,16 +1,15 @@
 package com.example.hao.smarthome;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,36 +20,24 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.Socket;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Timer;
-import java.util.concurrent.DelayQueue;
+import java.util.TimerTask;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import io.socket.client.IO;
 import io.socket.emitter.Emitter;
 
 public class Sign_In extends AppCompatActivity {
 
     TextView clickhere;
-    EditText fID, pass;
-    String ID, Pass;
+    public static EditText fID, pass;
+    public static String ID;
+    String Pass;
     private final String str = "";
     private static final String SPF_NAME = "vidslogin"; //  <--- Add this
     private static final String USERNAME = "username";  //  <--- To save username
     private static final String PASSWORD = "password";  //  <--- To save password
     ProgressDialog pDialog;
     CheckBox checkRemember;
+   int selector;
    public static BackGround backGround;
 
 
@@ -67,14 +54,29 @@ public class Sign_In extends AppCompatActivity {
                             JSONObject data=new JSONObject(msg);
                             message=data.getString("rcode");
                             if(message.equals("200")){
-                                Toast.makeText(getApplicationContext(),"login success !",Toast.LENGTH_LONG).show();
-                                Intent i=new Intent(Sign_In.this,MainActivity.class);
-                                startActivity(i);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        hideDialog();
+                                        Toast.makeText(getApplicationContext(),"login success !",Toast.LENGTH_LONG).show();
+                                        showSelector();
+                                    }
+                                }, 2000);
+
+                            }
+                            else{
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    public void run() {
+                                        hideDialog();
+                                        Toast.makeText(getApplicationContext(),"login failed !",Toast.LENGTH_LONG).show();
+                                    }
+                                }, 2000);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        hideDialog();
 
                     }
                 });
@@ -102,8 +104,12 @@ public class Sign_In extends AppCompatActivity {
         pass.setText(loginPreferences.getString(PASSWORD, ""));
 
         Button signIn = (Button) findViewById(R.id.sign_in);
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
+        pDialog = new ProgressDialog(this,R.style.MyProgressDialog);
+        pDialog.setCancelable(true);
+        pDialog.setMessage("Autheticating...");
+        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pDialog.setIndeterminate(true);
+        pDialog.setIndeterminateDrawable(this.getResources().getDrawable(R.drawable.custom_progress_dialog_animation));
 
 
         backGround.mSocket.connect();
@@ -147,8 +153,6 @@ public class Sign_In extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        pDialog.setMessage("Logging in...");
         showDialog();
         backGround.mSocket.emit("MLOGIN",obj.toString());
     }
@@ -161,5 +165,39 @@ public class Sign_In extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+    private void showSelector(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose your home");
+        if(Sign_In.ID.equals("tuyen")){
+            selector=R.array.tuyen;
+            builder.setItems(selector, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(which==0){
+                        Intent intent=new Intent(Sign_In.this,Home1.class);
+                        startActivity(intent);
+                    }
+                    else if(which==1){
+                        Intent intent=new Intent(Sign_In.this,Home1.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }else if(Sign_In.ID.equals("test1")){
+            selector=R.array.test1;
+            builder.setItems(selector, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }else if(Sign_In.ID.equals("test2")){
+            selector=R.array.test2;
+        }else if(Sign_In.ID.equals("test3")){
+            selector=R.array.test3;
+        }
+        builder.show();
+    }
+
 }
 

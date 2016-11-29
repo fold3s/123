@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tuyen">
+        <item>H1 - Nha 1234</item>
+        <item>H2 - Nha VIP</item>
+    </string-array>
+    <string-array name="test1">
+        <item>H2 - Nha VIP</item>
+        <item>H3 - Unknown(?)</item>
+    </string-array>
+    <string-array name="test2">
+        <item>H1 - Nha 1234</item>
+        <item>H3 - Unknown(?)</item>
+    </string-array>
+    <string-array name="test3">
+        <item>H1 - Nha 1234</item>
+        <item>H4 - Unknown(?)</item>
+    </string-array>
+</resources>
